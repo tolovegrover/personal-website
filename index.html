@@ -21,65 +21,106 @@
         .lang-toggle:hover {
             background: #f0f0f0;
         }
-        .card-links {
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .card {
             display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            font-size: 0.9em;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: white;
+            min-height: 180px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #333;
+        }
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card h2 {
+            font-size: 1.5em;
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+        .card p {
+            flex: 1;
+            margin: 0 0 15px 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+        .card-links {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
         }
         .card-links a {
-            color: #666;
+            display: inline-block;
+            color: #555;
             text-decoration: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
+            font-size: 0.85em;
             border: 1px solid #ddd;
             border-radius: 4px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
         .card-links a:hover {
-            background: #f0f0f0;
-            border-color: #333;
+            background: #f5f5f5;
+            border-color: #999;
+            color: #000;
         }
     </style>
 </head>
 <body>
-    <button class="lang-toggle" id="langBtn">हिन्दी</button>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">हिन्दी</button>
     
-    <div class="container">
-        <header>
-            <h1 id="mainHeading">Love Grover</h1>
-        </header>
-        
-        <main>
-            <div class="cards">
-                <a class="card" href="research.html">
-                    <div class="card-content">
-                        <h2 id="researcherTitle">Researcher</h2>
-                        <p id="researcherText">View My Research</p>
-                        <div class="card-links">
-                            <a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&amp;hl=en" id="researcherLinkScholar" target="_blank" onclick="event.stopPropagation();">Google Scholar</a>
-                        </div>
+    <header>
+        <h1 id="mainTitle">Love Grover</h1>
+    </header>
+    
+    <main>
+        <div class="card-grid">
+            <a class="card" href="research.html">
+                <div class="card-content">
+                    <h2 id="researcherTitle">Researcher</h2>
+                    <p id="researcherText">View My Research</p>
+                    <div class="card-links">
+                        <a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" id="researcherLinkScholar" target="_blank" onclick="event.stopPropagation();">Google Scholar</a>
                     </div>
-                </a>
-                
-                <a class="card" href="contact.html">
-                    <div class="card-content">
-                        <h2 id="writerTitle">Writer</h2>
-                        <p id="writerText">Get in touch</p>
-                        <div class="card-links">
-                            <a href="https://www.instagram.com/1ove.grover" id="writerLinkInsta" target="_blank" onclick="event.stopPropagation();">Instagram</a>
-                        </div>
+                </div>
+            </a>
+            
+            <a class="card" href="contact.html">
+                <div class="card-content">
+                    <h2 id="writerTitle">Writer</h2>
+                    <p id="writerText">Get in touch</p>
+                    <div class="card-links">
+                        <a href="https://www.instagram.com/1ove.grover" id="writerLinkInsta" target="_blank" onclick="event.stopPropagation();">Instagram</a>
                     </div>
-                </a>
-                
-                <a class="card" href="blog.html">
-                    <div class="card-content">
-                        <h2 id="bloggerTitle">Blogger</h2>
-                        <p id="bloggerText">Read my thoughts</p>
-                    </div>
-                </a>
-            </div>
-        </main>
-    </div>
+                </div>
+            </a>
+            
+            <a class="card" href="blog.html">
+                <div class="card-content">
+                    <h2 id="bloggerTitle">Blogger</h2>
+                    <p id="bloggerText">Read my thoughts</p>
+                </div>
+            </a>
+        </div>
+    </main>
     
     <!-- Centralized Language Management -->
     <script src="language.js"></script>
