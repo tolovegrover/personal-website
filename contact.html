@@ -67,16 +67,14 @@
             <div class="contact-info">
                 <p id="nameLabel">Name: Love Grover</p>
                 <p id="emailLabel">Email: <a href="mailto:contact@lovegrover.com">contact@lovegrover.com</a></p>
-                <p id="researchLabel">Research: <a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank" id="scholarLink">Google Scholar Profile</a></p>
+                <p id="researchLabel">Research: <a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" id="scholarLink" target="_blank">Google Scholar Profile</a></p>
             </div>
             
-            <a class="back-link" href="index.html" id="backLink">← Back to Home</a>
+            <a href="index.html" class="back-link" id="backLink">← Back to Home</a>
         </main>
     </div>
-
+    
     <script>
-        let currentLang = 'en';
-        
         const translations = {
             en: {
                 heading: 'Love Grover',
@@ -98,10 +96,11 @@
             }
         };
         
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'hi' : 'en';
-            const t = translations[currentLang];
-            
+        // Load saved language preference on page load
+        let currentLang = localStorage.getItem('preferredLang') || 'en';
+        
+        function applyLanguage(lang) {
+            const t = translations[lang];
             document.getElementById('mainHeading').textContent = t.heading;
             document.getElementById('nameLabel').textContent = t.nameLabel;
             
@@ -111,11 +110,20 @@
             
             // Update research label while preserving the link
             const researchP = document.getElementById('researchLabel');
-            researchP.innerHTML = t.researchLabel + '<a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + t.scholarLink + '</a>';
+            researchP.innerHTML = t.researchLabel + '<a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" target="_blank">' + t.scholarLink + '</a>';
             
             document.getElementById('backLink').textContent = t.backLink;
             document.getElementById('langBtn').textContent = t.btnText;
         }
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            localStorage.setItem('preferredLang', currentLang);
+            applyLanguage(currentLang);
+        }
+        
+        // Apply saved language on page load
+        applyLanguage(currentLang);
     </script>
 </body>
 </html>
