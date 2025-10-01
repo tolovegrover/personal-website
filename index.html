@@ -6,123 +6,281 @@
     <title>Love Grover</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .nav-brand {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #000;
+        }
+        
         .lang-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: none;
-            border: 1px solid #333;
-            padding: 8px 16px;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
             cursor: pointer;
             font-size: 14px;
             border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .lang-toggle:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+        
+        /* Burger Menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        
+        .burger span {
+            width: 22px;
+            height: 2px;
+            background: #333;
             transition: all 0.3s ease;
         }
-        .lang-toggle:hover {
-            background: #f0f0f0;
+        
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 40px;
         }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .intro h1 {
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .intro p {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        /* Card Grid */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
+        
         .card {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
             padding: 30px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            background: white;
-            min-height: 180px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
         }
+        
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            border-color: #333;
+            border-color: #999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        .card-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+        
         .card h2 {
-            font-size: 1.5em;
-            margin: 0 0 10px 0;
+            font-size: 20px;
             font-weight: 600;
+            margin-bottom: 8px;
         }
+        
         .card p {
-            flex: 1;
-            margin: 0 0 15px 0;
+            font-size: 15px;
             color: #666;
-            font-size: 0.95em;
+            margin-bottom: 15px;
         }
-        .card-links {
-            margin-top: auto;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
-        }
-        .card-links a {
+        
+        .card-link {
             display: inline-block;
+            font-size: 14px;
             color: #555;
             text-decoration: none;
             padding: 6px 12px;
-            font-size: 0.85em;
             border: 1px solid #ddd;
             border-radius: 4px;
             transition: all 0.2s ease;
         }
-        .card-links a:hover {
+        
+        .card-link:hover {
             background: #f5f5f5;
             border-color: #999;
-            color: #000;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: #fff;
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                transition: right 0.3s ease;
+                border-left: 1px solid #e0e0e0;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .burger {
+                display: flex;
+            }
+            
+            .burger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .burger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .burger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            main {
+                padding: 0 20px;
+                margin: 40px auto;
+            }
+            
+            .intro h1 {
+                font-size: 32px;
+            }
+            
+            .intro p {
+                font-size: 16px;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">हिन्दी</button>
-    
-    <header>
-        <h1 id="mainTitle">Love Grover</h1>
-    </header>
-    
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="nav-brand">Love Grover</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="research.html" id="navResearch">Research</a></li>
+            <li><a href="blog.html" id="navBlog">Blog</a></li>
+            <li><a href="contact.html" id="navContact">Contact</a></li>
+            <li><button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">हिन्दी</button></li>
+        </ul>
+        <div class="burger" id="burger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
     <main>
+        <div class="intro">
+            <h1 id="mainTitle">Love Grover</h1>
+            <p id="mainSubtitle">Researcher, Writer, Blogger</p>
+        </div>
+
+        <!-- Essential Cards Only -->
         <div class="card-grid">
             <a class="card" href="research.html">
-                <div class="card-content">
-                    <h2 id="researcherTitle">Researcher</h2>
-                    <p id="researcherText">View My Research</p>
-                    <div class="card-links">
-                        <a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" id="researcherLinkScholar" target="_blank" onclick="event.stopPropagation();">Google Scholar</a>
-                    </div>
-                </div>
+                <h2 id="researchTitle">Research</h2>
+                <p id="researchText">Explore my academic work and publications</p>
+                <span class="card-link" id="scholarLink" onclick="event.preventDefault(); window.open('https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en', '_blank');">Google Scholar</span>
             </a>
-            
-            <a class="card" href="contact.html">
-                <div class="card-content">
-                    <h2 id="writerTitle">Writer</h2>
-                    <p id="writerText">Get in touch</p>
-                    <div class="card-links">
-                        <a href="https://www.instagram.com/1ove.grover" id="writerLinkInsta" target="_blank" onclick="event.stopPropagation();">Instagram</a>
-                    </div>
-                </div>
-            </a>
-            
+
             <a class="card" href="blog.html">
-                <div class="card-content">
-                    <h2 id="bloggerTitle">Blogger</h2>
-                    <p id="bloggerText">Read my thoughts</p>
-                </div>
+                <h2 id="blogTitle">Blog</h2>
+                <p id="blogText">Read my thoughts and reflections</p>
+            </a>
+
+            <a class="card" href="contact.html">
+                <h2 id="contactTitle">Contact</h2>
+                <p id="contactText">Get in touch with me</p>
+                <span class="card-link" id="instaLink" onclick="event.preventDefault(); window.open('https://www.instagram.com/1ove.grover', '_blank');">Instagram</span>
             </a>
         </div>
     </main>
-    
-    <!-- Centralized Language Management -->
+
+    <!-- Scripts -->
     <script src="language.js"></script>
+    <script>
+        // Burger menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const burger = document.getElementById('burger');
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const burger = document.getElementById('burger');
+            const nav = document.querySelector('nav');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                burger.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
