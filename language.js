@@ -108,7 +108,7 @@ class LanguageManager {
     updateResearchLabel(researchText, linkText) {
         const researchP = document.getElementById('researchLabel');
         if (researchP && researchText && linkText) {
-            researchP.innerHTML = researchText + '<a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + linkText + '</a>';
+            researchP.innerHTML = researchText + '<a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + linkText + '</a>';
         }
     }
     
@@ -138,8 +138,8 @@ class LanguageManager {
                     cleanHref = href.replace(/([?&])lang=[^&]*&?/g, '$1').replace(/[?&]$/, '');
                 }
                 
-                // Add the language parameter
-                link.href = cleanHref + separator + 'lang=' + this.currentLang;
+                // Add the language parameter using setAttribute to preserve relative paths
+                link.setAttribute('href', cleanHref + separator + 'lang=' + this.currentLang);
             }
         });
     }
