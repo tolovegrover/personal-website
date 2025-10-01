@@ -5,11 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Grover</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .lang-toggle:hover {
+            background: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
+    <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">हिन्दी</button>
+    
     <div class="container">
         <header>
-            <h1>Love Grover</h1>
+            <h1 id="mainHeading">Love Grover</h1>
         </header>
         
         <main>
@@ -19,8 +38,8 @@
                         <svg class="scholar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 2zm6.82 6L12 12.72 5.18 8 12 3.28 18.82 8zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
                         </svg>
-                        <h2>Researcher</h2>
-                        <p>View publications on Google Scholar</p>
+                        <h2 id="researcherTitle">Researcher</h2>
+                        <p id="researcherText">View publications on Google Scholar</p>
                     </div>
                 </a>
                 
@@ -29,12 +48,47 @@
                         <svg class="writer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
                         </svg>
-                        <h2>Writer</h2>
-                        <p>Get in touch</p>
+                        <h2 id="writerTitle">Writer</h2>
+                        <p id="writerText">Get in touch</p>
                     </div>
                 </a>
             </div>
         </main>
     </div>
+
+    <script>
+        let currentLang = 'en';
+        
+        const translations = {
+            en: {
+                heading: 'Love Grover',
+                researcherTitle: 'Researcher',
+                researcherText: 'View publications on Google Scholar',
+                writerTitle: 'Writer',
+                writerText: 'Get in touch',
+                btnText: 'हिन्दी'
+            },
+            hi: {
+                heading: 'लव ग्रोवर',
+                researcherTitle: 'शोधकर्ता',
+                researcherText: 'गूगल स्कॉलर पर प्रकाशन देखें',
+                writerTitle: 'लेखक',
+                writerText: 'संपर्क करें',
+                btnText: 'English'
+            }
+        };
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            const t = translations[currentLang];
+            
+            document.getElementById('mainHeading').textContent = t.heading;
+            document.getElementById('researcherTitle').textContent = t.researcherTitle;
+            document.getElementById('researcherText').textContent = t.researcherText;
+            document.getElementById('writerTitle').textContent = t.writerTitle;
+            document.getElementById('writerText').textContent = t.writerText;
+            document.getElementById('langBtn').textContent = t.btnText;
+        }
+    </script>
 </body>
 </html>
