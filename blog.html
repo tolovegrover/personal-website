@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Love Grover</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .lang-toggle:hover {
+            background: #f0f0f0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #f0f0f0;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .blog-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .blog-section h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .placeholder-text {
+            color: #666;
+            font-style: italic;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="lang-toggle" id="langBtn">हिन्दी</button>
+    
+    <div class="container">
+        <div class="content">
+            <a href="index.html" class="back-link" id="backLink">← Back to Home</a>
+            
+            <header>
+                <h1 id="mainHeading">Love Grover</h1>
+            </header>
+            
+            <main>
+                <div class="blog-section">
+                    <h2 id="blogHeading">Blog</h2>
+                    <p id="blogIntro">Thoughts and writings</p>
+                    <div class="placeholder-text">
+                        <p>This is a placeholder for your blog content. You can write about:</p>
+                        <ul>
+                            <li>Personal reflections and insights</li>
+                            <li>Academic discussions and debates</li>
+                            <li>Life experiences and learnings</li>
+                            <li>Cultural observations and commentary</li>
+                            <li>Book reviews and recommendations</li>
+                        </ul>
+                        <p>Start creating your blog posts here. Each post can be added as a new section or linked to separate pages.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Centralized Language Management -->
+    <script src="language.js"></script>
+</body>
+</html>
