@@ -1,8 +1,19 @@
 // Centralized Language Management System
 // This file handles all language switching functionality across the website
+
 class LanguageManager {
     constructor() {
-        this.currentLang = localStorage.getItem('preferredLang') || 'en';
+        // Check URL parameters first, then localStorage, then default to 'en'
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        
+        if (urlLang && (urlLang === 'en' || urlLang === 'hi')) {
+            this.currentLang = urlLang;
+            localStorage.setItem('preferredLang', urlLang);
+        } else {
+            this.currentLang = localStorage.getItem('preferredLang') || 'en';
+        }
+        
         this.translations = {
             en: {
                 // Common elements
@@ -46,7 +57,7 @@ class LanguageManager {
     }
     
     init() {
-        // Apply saved language preference on page load
+        // Apply language preference on page load
         this.applyLanguage(this.currentLang);
         
         // Set up event listeners
@@ -61,11 +72,6 @@ class LanguageManager {
         if (langBtn) {
             langBtn.addEventListener('click', () => this.toggleLanguage());
         }
-        
-        // Listen for page load events to maintain language across navigation
-        window.addEventListener('beforeunload', () => {
-            localStorage.setItem('preferredLang', this.currentLang);
-        });
     }
     
     applyLanguage(lang) {
@@ -108,38 +114,57 @@ class LanguageManager {
     updateResearchLabel(researchText, linkText) {
         const researchP = document.getElementById('researchLabel');
         if (researchP && researchText && linkText) {
-            researchP.innerHTML = researchText + '<a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + linkText + '</a>';
+            researchP.innerHTML = researchText + '<a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + linkText + '</a>';
         }
     }
     
     toggleLanguage() {
-        this.currentLang = this.currentLang === 'en' ? 'hi' : 'en';
-        localStorage.setItem('preferredLang', this.currentLang);
-        this.applyLanguage(this.currentLang);
+        // Toggle between English and Hindi
+        const newLang = this.currentLang === 'en' ? 'hi' : 'en';
         
-        // Update all links when language changes
-        this.updateLinks();
+        // Save preference to localStorage
+        localStorage.setItem('preferredLang', newLang);
+        
+        // Update URL with new language parameter and reload
+        const url = new URL(window.location);
+        url.searchParams.set('lang', newLang);
+        window.location.href = url.toString();
     }
     
     updateLinks() {
-        // Update all internal links to include language preference
+        // Update all internal links to include current language parameter
         const links = document.querySelectorAll('a[href]');
         links.forEach(link => {
             const href = link.getAttribute('href');
             
-            // Only update internal links (not external or mailto links)
+            // Only update internal links (not external, mailto, or anchor links)
             if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('#')) {
-                // Check if the link already has a query string
-                const separator = href.includes('?') ? '&' : '?';
-                
-                // Remove existing lang parameter if present
-                let cleanHref = href;
-                if (href.includes('lang=')) {
-                    cleanHref = href.replace(/([?&])lang=[^&]*&?/g, '$1').replace(/[?&]$/, '');
+                try {
+                    // Parse the href to check if it's a relative URL
+                    let url;
+                    if (href.startsWith('/')) {
+                        // Absolute path
+                        url = new URL(href, window.location.origin);
+                    } else {
+                        // Relative path
+                        url = new URL(href, window.location.href);
+                    }
+                    
+                    // Add or update the lang parameter
+                    url.searchParams.set('lang', this.currentLang);
+                    
+                    // Update the link href
+                    // For relative links, extract just the pathname and search
+                    if (!href.startsWith('/')) {
+                        link.setAttribute('href', url.pathname.split('/').pop() + url.search);
+                    } else {
+                        link.setAttribute('href', url.pathname + url.search);
+                    }
+                } catch (e) {
+                    // If URL parsing fails, fallback to simple string manipulation
+                    let cleanHref = href.split('?')[0];
+                    link.setAttribute('href', cleanHref + '?lang=' + this.currentLang);
                 }
-                
-                // Add the language parameter using setAttribute to preserve relative paths
-                link.setAttribute('href', cleanHref + separator + 'lang=' + this.currentLang);
             }
         });
     }
@@ -154,22 +179,17 @@ class LanguageManager {
         if (this.translations[lang]) {
             this.currentLang = lang;
             localStorage.setItem('preferredLang', this.currentLang);
-            this.applyLanguage(this.currentLang);
-            this.updateLinks();
+            
+            // Update URL and reload
+            const url = new URL(window.location);
+            url.searchParams.set('lang', lang);
+            window.location.href = url.toString();
         }
     }
 }
 
 // Initialize language manager when DOM is loaded
 function initLanguageManager() {
-    // Check URL parameters for language preference
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlLang = urlParams.get('lang');
-    
-    if (urlLang && (urlLang === 'en' || urlLang === 'hi')) {
-        localStorage.setItem('preferredLang', urlLang);
-    }
-    
     // Create global language manager instance
     window.languageManager = new LanguageManager();
 }
