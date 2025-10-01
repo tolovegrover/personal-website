@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-    <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">हिन्दी</button>
+    <button class="lang-toggle" id="langBtn">हिन्दी</button>
     
     <div class="container">
         <header>
@@ -33,20 +33,20 @@
         
         <main>
             <div class="cards">
-                <a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" class="card" target="_blank">
+                <a class="card" href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" target="_blank">
                     <div class="card-content">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
-                            <path d="M12 2L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 2zm6.82 6L12 12.72 5.18 8 12 3.28 18.82 8zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                        <svg class="scholar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 2zm6.82 6L12 12.72 5.18 8 12 3.28 18.82 8zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"></path>
                         </svg>
                         <h2 id="researcherTitle">Researcher</h2>
                         <p id="researcherText">View publications on Google Scholar</p>
                     </div>
                 </a>
                 
-                <a href="contact.html" class="card">
+                <a class="card" href="contact.html">
                     <div class="card-content">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="writer-icon">
-                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        <svg class="writer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path>
                         </svg>
                         <h2 id="writerTitle">Writer</h2>
                         <p id="writerText">Get in touch</p>
@@ -56,47 +56,7 @@
         </main>
     </div>
     
-    <script>
-        const translations = {
-            en: {
-                heading: 'Love Grover',
-                researcherTitle: 'Researcher',
-                researcherText: 'View publications on Google Scholar',
-                writerTitle: 'Writer',
-                writerText: 'Get in touch',
-                btnText: 'हिन्दी'
-            },
-            hi: {
-                heading: 'लव ग्रोवर',
-                researcherTitle: 'शोधकर्ता',
-                researcherText: 'गूगल स्कॉलर पर प्रकाशन देखें',
-                writerTitle: 'लेखक',
-                writerText: 'संपर्क करें',
-                btnText: 'English'
-            }
-        };
-        
-        // Load saved language preference on page load
-        let currentLang = localStorage.getItem('preferredLang') || 'en';
-        
-        function applyLanguage(lang) {
-            const t = translations[lang];
-            document.getElementById('mainHeading').textContent = t.heading;
-            document.getElementById('researcherTitle').textContent = t.researcherTitle;
-            document.getElementById('researcherText').textContent = t.researcherText;
-            document.getElementById('writerTitle').textContent = t.writerTitle;
-            document.getElementById('writerText').textContent = t.writerText;
-            document.getElementById('langBtn').textContent = t.btnText;
-        }
-        
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'hi' : 'en';
-            localStorage.setItem('preferredLang', currentLang);
-            applyLanguage(currentLang);
-        }
-        
-        // Apply saved language on page load
-        applyLanguage(currentLang);
-    </script>
+    <!-- Centralized Language Management -->
+    <script src="language.js"></script>
 </body>
 </html>
