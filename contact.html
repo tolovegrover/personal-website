@@ -6,6 +6,21 @@
     <title>Contact - Love Grover</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .lang-toggle:hover {
+            background: #f0f0f0;
+        }
         .contact-info {
             margin-top: 2rem;
             text-align: left;
@@ -41,20 +56,66 @@
     </style>
 </head>
 <body>
+    <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">हिन्दी</button>
+    
     <div class="container">
         <header>
-            <h1>Love Grover</h1>
+            <h1 id="mainHeading">Love Grover</h1>
         </header>
         
         <main>
             <div class="contact-info">
-                <p><strong>Name:</strong> Love Grover</p>
-                <p><strong>Email:</strong> <a href="mailto:contact@lovegrover.com">contact@lovegrover.com</a></p>
-                <p><strong>Research:</strong> <a href="https://scholar.google.com/citations?user=CdQaSogAAAAJ&hl=en" target="_blank">Google Scholar Profile</a></p>
+                <p id="nameLabel">Name: Love Grover</p>
+                <p id="emailLabel">Email: <a href="mailto:contact@lovegrover.com">contact@lovegrover.com</a></p>
+                <p id="researchLabel">Research: <a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank" id="scholarLink">Google Scholar Profile</a></p>
             </div>
-            <br/>
-            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <a class="back-link" href="index.html" id="backLink">← Back to Home</a>
         </main>
     </div>
+
+    <script>
+        let currentLang = 'en';
+        
+        const translations = {
+            en: {
+                heading: 'Love Grover',
+                nameLabel: 'Name: Love Grover',
+                emailLabel: 'Email: ',
+                researchLabel: 'Research: ',
+                scholarLink: 'Google Scholar Profile',
+                backLink: '← Back to Home',
+                btnText: 'हिन्दी'
+            },
+            hi: {
+                heading: 'लव ग्रोवर',
+                nameLabel: 'नाम: लव ग्रोवर',
+                emailLabel: 'ईमेल: ',
+                researchLabel: 'शोध: ',
+                scholarLink: 'गूगल स्कॉलर प्रोफ़ाइल',
+                backLink: '← होम पर वापस जाएं',
+                btnText: 'English'
+            }
+        };
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            const t = translations[currentLang];
+            
+            document.getElementById('mainHeading').textContent = t.heading;
+            document.getElementById('nameLabel').textContent = t.nameLabel;
+            
+            // Update email label while preserving the link
+            const emailP = document.getElementById('emailLabel');
+            emailP.innerHTML = t.emailLabel + '<a href="mailto:contact@lovegrover.com">contact@lovegrover.com</a>';
+            
+            // Update research label while preserving the link
+            const researchP = document.getElementById('researchLabel');
+            researchP.innerHTML = t.researchLabel + '<a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + t.scholarLink + '</a>';
+            
+            document.getElementById('backLink').textContent = t.backLink;
+            document.getElementById('langBtn').textContent = t.btnText;
+        }
+    </script>
 </body>
 </html>
