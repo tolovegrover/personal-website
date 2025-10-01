@@ -1,6 +1,5 @@
 // Centralized Language Management System
 // This file handles all language switching functionality across the website
-
 class LanguageManager {
     constructor() {
         this.currentLang = localStorage.getItem('preferredLang') || 'en';
@@ -109,7 +108,7 @@ class LanguageManager {
     updateResearchLabel(researchText, linkText) {
         const researchP = document.getElementById('researchLabel');
         if (researchP && researchText && linkText) {
-            researchP.innerHTML = researchText + '<a href="https://scholar.google.com/citations?user=your-id" target="_blank">' + linkText + '</a>';
+            researchP.innerHTML = researchText + '<a href="https://scholar.google.com/citations?user=user=CdQaSogAAAAJ&amp;hl=en" target="_blank">' + linkText + '</a>';
         }
     }
     
@@ -118,19 +117,8 @@ class LanguageManager {
         localStorage.setItem('preferredLang', this.currentLang);
         this.applyLanguage(this.currentLang);
         
-        // Update URL parameters to maintain language preference across navigation
-        this.updateUrlWithLanguage();
-    }
-    
-    updateUrlWithLanguage() {
-        // Add language parameter to current URL if not already present
-        const url = new URL(window.location);
-        url.searchParams.set('lang', this.currentLang);
-        
-        // Update URL without page reload
-        if (window.history.pushState) {
-            window.history.pushState({}, '', url);
-        }
+        // Update all links when language changes
+        this.updateLinks();
     }
     
     updateLinks() {
@@ -141,9 +129,17 @@ class LanguageManager {
             
             // Only update internal links (not external or mailto links)
             if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('#')) {
-                const url = new URL(href, window.location.origin);
-                url.searchParams.set('lang', this.currentLang);
-                link.href = url.pathname + url.search;
+                // Check if the link already has a query string
+                const separator = href.includes('?') ? '&' : '?';
+                
+                // Remove existing lang parameter if present
+                let cleanHref = href;
+                if (href.includes('lang=')) {
+                    cleanHref = href.replace(/([?&])lang=[^&]*&?/g, '$1').replace(/[?&]$/, '');
+                }
+                
+                // Add the language parameter
+                link.href = cleanHref + separator + 'lang=' + this.currentLang;
             }
         });
     }
