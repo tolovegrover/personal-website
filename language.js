@@ -1,6 +1,5 @@
 // Centralized Language Management System
 // This file handles all language switching functionality across the website
-
 class LanguageManager {
     constructor() {
         // Check URL parameters first, then localStorage, then default to 'en'
@@ -22,16 +21,24 @@ class LanguageManager {
                 
                 // Index page specific
                 researcherTitle: 'Researcher',
-                researcherText: 'View publications on Google Scholar',
+                researcherText: 'View My Research',
+                researcherLinkScholar: 'Google Scholar',
+                researcherLinkInsta: 'Instagram',
                 writerTitle: 'Writer',
                 writerText: 'Get in touch',
+                bloggerTitle: 'Blogger',
+                bloggerText: 'Read my thoughts',
                 
                 // Contact page specific
                 nameLabel: 'Name: Love Grover',
                 emailLabel: 'Email: ',
                 researchLabel: 'Research: ',
                 scholarLink: 'Google Scholar Profile',
-                backLink: '← Back to Home'
+                backLink: '← Back to Home',
+                
+                // Blog page specific
+                blogHeading: 'Blog',
+                blogIntro: 'Thoughts and writings'
             },
             hi: {
                 // Common elements
@@ -40,16 +47,24 @@ class LanguageManager {
                 
                 // Index page specific
                 researcherTitle: 'शोधकर्ता',
-                researcherText: 'गूगल स्कॉलर पर प्रकाशन देखें',
+                researcherText: 'मेरा शोध देखें',
+                researcherLinkScholar: 'गूगल विद्वान',
+                researcherLinkInsta: 'चित्रसन्देश',
                 writerTitle: 'लेखक',
-                writerText: 'संपर्क करें',
+                writerText: 'सम्पर्क करें',
+                bloggerTitle: 'चिट्ठाकार',
+                bloggerText: 'मेरे विचार पढ़ें',
                 
                 // Contact page specific
                 nameLabel: 'नाम: लव ग्रोवर',
-                emailLabel: 'ईमेल: ',
+                emailLabel: 'विपत्र: ',
                 researchLabel: 'शोध: ',
-                scholarLink: 'गूगल स्कॉलर प्रोफ़ाइल',
-                backLink: '← होम पर वापस जाएं'
+                scholarLink: 'गूगल विद्वान प्रोफ़ाइल',
+                backLink: '← गृहपृष्ठ पर वापस जाएँ'
+                
+                // Blog page specific
+                blogHeading: 'चिट्ठा',
+                blogIntro: 'विचार एवं लेखन'
             }
         };
         
@@ -85,12 +100,20 @@ class LanguageManager {
         // Update index page specific elements
         this.updateElement('researcherTitle', t.researcherTitle);
         this.updateElement('researcherText', t.researcherText);
+        this.updateElement('researcherLinkScholar', t.researcherLinkScholar);
+        this.updateElement('researcherLinkInsta', t.researcherLinkInsta);
         this.updateElement('writerTitle', t.writerTitle);
         this.updateElement('writerText', t.writerText);
+        this.updateElement('bloggerTitle', t.bloggerTitle);
+        this.updateElement('bloggerText', t.bloggerText);
         
         // Update contact page specific elements
         this.updateElement('nameLabel', t.nameLabel);
         this.updateElement('backLink', t.backLink);
+        
+        // Update blog page specific elements
+        this.updateElement('blogHeading', t.blogHeading);
+        this.updateElement('blogIntro', t.blogIntro);
         
         // Handle complex elements with links (contact page)
         this.updateEmailLabel(t.emailLabel);
@@ -187,20 +210,17 @@ class LanguageManager {
         }
     }
 }
-
 // Initialize language manager when DOM is loaded
 function initLanguageManager() {
     // Create global language manager instance
     window.languageManager = new LanguageManager();
 }
-
 // Legacy function for backward compatibility
 function toggleLanguage() {
     if (window.languageManager) {
         window.languageManager.toggleLanguage();
     }
 }
-
 // Auto-initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLanguageManager);
